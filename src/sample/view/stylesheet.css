@@ -1,0 +1,15 @@
+.loginPaneContainer{
+-fx-background-color: #f0f4c3;
+}
+
+.loginTextAreas {
+-fx-background-color: #cddc39;
+}
+
+.loginButton {
+-fx-background-color: #ff9800;
+}
+
+.loginButton:hover {
+-fx-background-color: #f57c00;
+}
