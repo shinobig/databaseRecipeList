@@ -26,8 +26,9 @@ public class Controller {
   @FXML
   private Button loginBtn;
 
-  public void initialize() {
+ public void initialize() {
     dataSource = new DataSource();
+
     if (!dataSource.open()) {
       System.out.println("Can't open datasource");
     }
@@ -52,6 +53,8 @@ public class Controller {
   @FXML
   private void showRecipesView() {
 
+    dataSource.close();
+
     try {
 
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("view/recipesView/recipesView.fxml"));
@@ -62,9 +65,11 @@ public class Controller {
       stage.show();
 
 
+
     } catch (IOException e) {
       e.printStackTrace();
     }
+
   }
 
 

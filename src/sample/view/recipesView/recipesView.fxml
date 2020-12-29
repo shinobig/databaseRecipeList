@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
 
-<BorderPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.recipesView.RecipesViewController">
-    <center>
-        <Label text="Successfully log in">
-         <graphic>
-            <Button fx:id="testBtnRecipesView" mnemonicParsing="false" onAction="#testControllerRecipeView" text="Test controller" />
-         </graphic></Label>
-    </center>
-
-</BorderPane>
+<GridPane xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.recipesView.RecipesViewController">
+    <Label text="User Name:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+    <Label text="User Name:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+    <Label text="User Name:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+   <columnConstraints>
+      <ColumnConstraints minWidth="200.0" />
+      <ColumnConstraints minWidth="200.0" />
+      <ColumnConstraints minWidth="400.0" />
+   </columnConstraints>
+   <rowConstraints>
+      <RowConstraints />
+      <RowConstraints />
+   </rowConstraints>
+</GridPane>
