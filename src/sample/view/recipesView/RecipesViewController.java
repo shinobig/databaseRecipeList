@@ -52,6 +52,7 @@ public class RecipesViewController {
 
   public Ingredient createIngredient(){
     Ingredient ingredientToCreate = new Ingredient();
+    return ingredientToCreate;
   }
 
 

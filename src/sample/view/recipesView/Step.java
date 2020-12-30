@@ -2,20 +2,20 @@ package sample.view.recipesView;
 
 public class Step {
 
-  int index;
+  int stepIndex;
   String step;
 
-  public Step(int index, String step) {
-    this.index = index;
+  public Step(int stepIndex, String step) {
+    this.stepIndex = stepIndex;
     this.step = step;
   }
 
   public int getIndex() {
-    return index;
+    return stepIndex;
   }
 
   public void setIndex(int index) {
-    this.index = index;
+    this.stepIndex = index;
   }
 
   public String getStep() {
