@@ -26,9 +26,8 @@ public class Controller {
   @FXML
   private Button loginBtn;
 
- public void initialize() {
+  public void initialize() {
     dataSource = new DataSource();
-
     if (!dataSource.open()) {
       System.out.println("Can't open datasource");
     }
@@ -36,25 +35,18 @@ public class Controller {
 
   @FXML
   private void handleLogin() {
-    String username = usernameTextArea.getText().trim();
-    String password = passwordArea.getText().trim();
 
-    String storedUsername = dataSource.getUsername();
-    String storedPassword = dataSource.getUserPassword();
 
-    if ((username.equals(storedUsername)) && (password.equals(storedPassword))) {
+    if (checkLogin()) {
       showRecipesView();
     } else {
       System.out.println("Please insert new username or ps");
     }
   }
 
-
   @FXML
   private void showRecipesView() {
-
     dataSource.close();
-
     try {
 
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("view/recipesView/recipesView.fxml"));
@@ -63,30 +55,18 @@ public class Controller {
       stage.setTitle("Welcome!");
       stage.setScene(new Scene(root1, 900, 500));
       stage.show();
-
-
-
     } catch (IOException e) {
       e.printStackTrace();
     }
-
   }
 
 
-  // DataSource interaction
-
-  private boolean checkLogin(String username, String password) {
-    return true;
-  }
-
-  private void showAllRecipes() {
-  }
-
-  private void displayFilteredRecipes() {
-  }
-
-  private ArrayList<String> filterRecipes() {
-    return null;
+  private boolean checkLogin() {
+    String username = usernameTextArea.getText().trim();
+    String password = passwordArea.getText().trim();
+    String storedUsername = dataSource.getUsername();
+    String storedPassword = dataSource.getUserPassword();
+    return (username.equals(storedUsername)) && (password.equals(storedPassword));
   }
 
 
