@@ -19,7 +19,6 @@ public class DataSource {
 
 
 
-
       System.out.println("Successfully connected to DB");
       return true;
     } catch (SQLException e) {
@@ -53,15 +52,15 @@ public class DataSource {
   }
 
   public int getUsername(String insertedUsername) {
-    try{
+    try {
       returnUsername.setString(1, insertedUsername);
       ResultSet resultSet = returnUsername.executeQuery();
-      if(resultSet.getString(Constants.COLUMN_USER_USERNAME) != null){
+      if (resultSet.getString(Constants.COLUMN_USER_USERNAME) != null) {
         return resultSet.getInt(Constants.COLUMN_USER_ID);
       } else {
         return -1;
       }
-    } catch (SQLException e){
+    } catch (SQLException e) {
       System.out.println("No username found: " + e.getMessage());
       return -1;
     }
