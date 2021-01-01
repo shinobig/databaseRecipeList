@@ -36,7 +36,6 @@ public class Controller {
   @FXML
   private void handleLogin() {
 
-
     if (checkLogin()) {
       showRecipesView();
     } else {
@@ -64,10 +63,17 @@ public class Controller {
   private boolean checkLogin() {
     String username = usernameTextArea.getText().trim();
     String password = passwordArea.getText().trim();
-    String storedUsername = dataSource.getUsername();
-    String storedPassword = dataSource.getUserPassword();
-    return (username.equals(storedUsername)) && (password.equals(storedPassword));
+    int storedUserId = dataSource.getUsername(username);
+    String storedPassword = dataSource.getPassword(storedUserId);
+
+    if (storedPassword != null) {
+      if (password.equals(storedPassword)) {
+        return true;
+      }
+      System.out.println("Wrong password");
+      return false;
+    }
+    System.out.println("No user found");
+    return false;
   }
-
-
 }
