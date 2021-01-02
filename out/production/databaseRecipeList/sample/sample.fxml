@@ -67,7 +67,7 @@
                         <Insets bottom="5.0" left="20.0" right="20.0" top="5.0"/>
                     </padding>
                 </Button>
-                <Button id="testBtn" mnemonicParsing="false" onAction="#showRecipesView" text="Testlog"
+                <Button id="testBtn" mnemonicParsing="false" onAction="#showRecipesViewTest" text="Testlog"
                         GridPane.columnIndex="1"/>
             </children>
         </GridPane>

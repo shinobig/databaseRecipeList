@@ -1,6 +1,10 @@
 package sample.model;
 
+import sample.view.recipesView.RecipeCategory;
+
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.Locale;
 
 public class DataSource {
 
@@ -9,6 +13,7 @@ public class DataSource {
   // Statements
   private PreparedStatement returnUsername;
   private PreparedStatement returnPassword;
+  private PreparedStatement returnCategories;
 
   public boolean open() {
     try {
@@ -16,6 +21,7 @@ public class DataSource {
       Statement statement = conn.createStatement();
       returnUsername = conn.prepareStatement(Constants.CHECK_USERNAME);
       returnPassword = conn.prepareStatement(Constants.CHECK_PASSWORD);
+      returnCategories = conn.prepareStatement(Constants.GET_CATEGORIES);
 
 
 
@@ -32,6 +38,7 @@ public class DataSource {
 
       closeQuery(returnUsername);
       closeQuery(returnPassword);
+      closeQuery(returnCategories);
 
       if (conn != null) {
         conn.close();
@@ -76,5 +83,17 @@ public class DataSource {
     }
     return null;
   }
+
+  public ResultSet getAllCategories(int userID){
+    try{
+      returnCategories.setString(1, String.valueOf(userID));
+      ResultSet resultSet = returnCategories.executeQuery();
+      return resultSet;
+    } catch (SQLException e){
+      System.out.println("Couln't get the categories: " + e.getMessage());
+    }
+    return null;
+  }
+
 
 }

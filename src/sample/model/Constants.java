@@ -51,4 +51,8 @@ public class Constants {
   // Password query
   public static final String CHECK_PASSWORD = "SELECT " + COLUMN_PASSWORD_PASSWORD + " FROM " + TABLE_PASSWORD + " " +
       "INNER JOIN " + TABLE_USER + " ON " + TABLE_PASSWORD + "." + COLUMN_PASSWORD_USERID + " = " + TABLE_USER + "." + COLUMN_USER_ID + " WHERE " + COLUMN_PASSWORD_USERID + " = ?";
+
+  // Categories query
+  public static final String GET_CATEGORIES = "SELECT * FROM " + TABLE_CATEGORY + " INNER JOIN " + TABLE_USER + " ON " +TABLE_CATEGORY + "." + COLUMN_CATEGORIES_USERID + " = " + TABLE_USER + "." + COLUMN_USER_ID + " WHERE " + COLUMN_PASSWORD_USERID + " = ?";
+
 }
