@@ -16,6 +16,7 @@ public class DataSource {
   private PreparedStatement returnPassword;
   private PreparedStatement returnCategories;
   private PreparedStatement returnRecipes;
+  private PreparedStatement returnCategoryByRecipe;
 
 
   public boolean open() {
@@ -27,6 +28,7 @@ public class DataSource {
       returnPassword = conn.prepareStatement(Constants.CHECK_PASSWORD);
        returnCategories = conn.prepareStatement(Constants.GET_CATEGORIES);
       returnRecipes = conn.prepareStatement(Constants.GET_RECIPES);
+      returnCategoryByRecipe = conn.prepareStatement(Constants.GET_CATEGORY_BY_RECIPE);
 
 
 
@@ -46,6 +48,7 @@ public class DataSource {
       closeQuery(returnPassword);
       closeQuery(returnCategories);
       closeQuery(returnRecipes);
+      closeQuery(returnCategoryByRecipe);
 
       if (conn != null) {
         conn.close();
@@ -109,9 +112,7 @@ public class DataSource {
     } catch (SQLException e){
       System.out.println("Couldn't return recipes: " + e.getMessage());
     }
-
     return null;
   }
-
 
 }

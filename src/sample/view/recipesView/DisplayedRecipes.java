@@ -37,18 +37,30 @@ public class DisplayedRecipes {
     return allRecipes;
   }
 
-  public void setAllRecipes(ResultSet allRecipes) {
+  public ArrayList<Recipe> setFilteredRecipes(String category){
+    ArrayList<Recipe> filteredArray = new ArrayList<>();
+    for(Recipe recipe: this.allRecipes){
+      if (recipe.getCategory().equals(category)){
+        filteredArray.add(recipe);
+      }
+    }
+    return filteredArray;
 
+  }
+
+  public void setAllRecipes(ResultSet allRecipes) {
     try {
       while (allRecipes.next()) {
         this.allRecipes.add(
-            new Recipe(allRecipes.getString(Constants.COLUMN_RECIPES_RECIPE_NAME))
+            new Recipe(
+                allRecipes.getString(Constants.COLUMN_RECIPES_RECIPE_NAME),
+                allRecipes.getString(Constants.COLUMN_CATEGORIES_CATEGORY)
+                )
         );
       }
     } catch (SQLException e) {
       System.out.println("Coudn't set all categories: " + e.getMessage());
     }
-
   }
 
   public void addRecipeToAll(Recipe recipeToAdd) {

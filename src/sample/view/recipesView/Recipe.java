@@ -4,14 +4,20 @@ import java.util.ArrayList;
 
 public class Recipe {
 
-  String name;
-  String category;
-  ArrayList<Step> allSteps;
-  ArrayList<Ingredient> allIngredients;
+  private String name;
+  private String category;
+  private ArrayList<Step> allSteps;
+  private ArrayList<Ingredient> allIngredients;
 
   public Recipe(String name) {
     this.name = name;
   }
+
+  public Recipe(String name, String category) {
+    this.name = name;
+    this.category = category;
+  }
+
   public Recipe(String name, ArrayList<Step> allSteps, ArrayList<Ingredient> allIngredients) {
     this.name = name;
     this.allSteps = allSteps;

@@ -58,8 +58,15 @@ public class Constants {
 
   // Recipes query
   public static final String GET_RECIPES =
-      "SELECT * FROM " + TABLE_RECIPES + " INNER JOIN " + TABLE_USER + " ON " + TABLE_RECIPES + "." + COLUMN_RECIPES_USERID + " = " + TABLE_USER + "." + COLUMN_USER_ID +
-      " WHERE " + COLUMN_CATEGORIES_USERID + " = ?";
+      "SELECT " + TABLE_RECIPES + "." + COLUMN_RECIPES_RECIPE_NAME + ", " +
+          TABLE_CATEGORY + "." + COLUMN_CATEGORIES_CATEGORY + ", " +
+          TABLE_RECIPES + "." + COLUMN_RECIPES_USERID + " FROM " + TABLE_RECIPES + " INNER JOIN " + TABLE_CATEGORY +
+          " ON " + TABLE_RECIPES + "." + COLUMN_RECIPES_CATEGORYID + " = " + TABLE_CATEGORY + "." + COLUMN_CATEGORIES_ID + " INNER JOIN " + TABLE_USER + " ON " + TABLE_CATEGORY + "." + COLUMN_CATEGORIES_USERID + " = " + TABLE_USER + "." + COLUMN_USER_ID + " WHERE " + TABLE_USER + "." + COLUMN_USER_ID + " = ?";
 
+
+  //SELECT recipes.recipename, categories.category, recipes.userid FROM recipes INNER JOIN categories ON recipes.categoryid = categories._id INNER JOIN users ON categories.userid = users._id WHERE users._id = 0
+
+  public static final String GET_CATEGORY_BY_RECIPE =
+      "SELECT " + COLUMN_CATEGORIES_CATEGORY + " FROM " + TABLE_CATEGORY + " WHERE " + COLUMN_CATEGORIES_ID + " = ?";
 
 }

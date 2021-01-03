@@ -19,8 +19,8 @@ public class RecipesViewController {
 
   @FXML
   VBox categoriesColumn;
-@FXML
-VBox recipesColumn;
+  @FXML
+  VBox recipesColumn;
 
   public void initialize(int userId) {
 
@@ -33,10 +33,7 @@ VBox recipesColumn;
     getCategories(userId);
     displayCategories();
     getAllRecipes(userId);
-   showAllRecipes();
-   displayRecipes();
-
-
+    showAllRecipes();
   }
 
   // DataSource interaction
@@ -44,6 +41,12 @@ VBox recipesColumn;
   private void displayCategories() {
 
     Button allCategoriesButton = new Button("Show all recipes");
+    allCategoriesButton.setOnAction(new EventHandler<ActionEvent>() {
+      @Override
+      public void handle(ActionEvent actionEvent) {
+        showAllRecipes();
+      }
+    });
     categoriesColumn.getChildren().add(allCategoriesButton);
 
     for (RecipeCategory category : allCategories.getCategories()) {
@@ -51,7 +54,7 @@ VBox recipesColumn;
       categoryButton.setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent actionEvent) {
-          categoryButtonClick(category.getCategory());
+          getFilteredCategories(category.getCategory());
         }
       });
       categoriesColumn.getChildren().add(categoryButton);
@@ -63,10 +66,8 @@ VBox recipesColumn;
   }
 
 
-
-
   private void displayRecipes() {
-    for (Recipe recipe : displayedRecipes.getDisplayedRecipes()){
+    for (Recipe recipe : displayedRecipes.getDisplayedRecipes()) {
       Button recipeButton = new Button(recipe.getName());
       recipeButton.setOnAction(new EventHandler<ActionEvent>() {
         @Override
@@ -78,12 +79,10 @@ VBox recipesColumn;
     }
   }
 
-  private ArrayList<String> showFilterRecipes() {
-    return null;
-  }
-
   private void showAllRecipes() {
-  displayedRecipes.setDisplayedRecipes(displayedRecipes.getAllRecipes());
+    recipesColumn.getChildren().clear();
+    displayedRecipes.setDisplayedRecipes(displayedRecipes.getAllRecipes());
+    displayRecipes();
   }
 
   private void getAllRecipes(int userId) {
@@ -91,10 +90,19 @@ VBox recipesColumn;
     displayedRecipes.setAllRecipes(allrecipes);
   }
 
-
   // Button methods
-  private void categoryButtonClick(String category) {
-    System.out.println(category);
+  private void getFilteredCategories(String category) {
+    recipesColumn.getChildren().clear();
+    displayedRecipes.setDisplayedRecipes(displayedRecipes.setFilteredRecipes(category));
+    displayRecipes();
+  }
+
+  private void getRecipe(){
+
+  }
+
+  private void displayRecipe(){
+    
   }
 
 }
