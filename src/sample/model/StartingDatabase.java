@@ -80,6 +80,12 @@ public class StartingDatabase {
 /*
       statement.execute("INSERT INTO recipes (_id, recipename, categoryid) VALUES (0, 'Honey Garlic Glazed Salmon', 0)");
       statement.execute("INSERT INTO recipes (_id, recipename, categoryid) VALUES (0, 'Chicken Stew', 1)");
+
+
+      // Add userid to recipelist
+      //statement.execute("ALTER TABLE recipes ADD userid INTEGER");
+      //statement.execute("UPDATE recipes SET userid = 0 WHERE _id = 1");
+     // statement.execute("UPDATE recipes SET userid = 0 WHERE _id = 0");
 */
 
   // Inserting ingredients

@@ -21,8 +21,6 @@ public class AllCategories {
 
   public void setCategories(ResultSet allCategories) {
 
-    System.out.println("Checking all categories");
-
     try {
       while (allCategories.next()) {
         this.categories.add(

@@ -1,5 +1,6 @@
 package sample.model;
 
+import javafx.scene.control.ContextMenu;
 import sample.view.recipesView.RecipeCategory;
 
 import java.sql.*;
@@ -14,14 +15,19 @@ public class DataSource {
   private PreparedStatement returnUsername;
   private PreparedStatement returnPassword;
   private PreparedStatement returnCategories;
+  private PreparedStatement returnRecipes;
+
 
   public boolean open() {
     try {
       conn = DriverManager.getConnection(Constants.CONNECTION_STRING);
       Statement statement = conn.createStatement();
+
       returnUsername = conn.prepareStatement(Constants.CHECK_USERNAME);
       returnPassword = conn.prepareStatement(Constants.CHECK_PASSWORD);
-      returnCategories = conn.prepareStatement(Constants.GET_CATEGORIES);
+       returnCategories = conn.prepareStatement(Constants.GET_CATEGORIES);
+      returnRecipes = conn.prepareStatement(Constants.GET_RECIPES);
+
 
 
 
@@ -39,6 +45,7 @@ public class DataSource {
       closeQuery(returnUsername);
       closeQuery(returnPassword);
       closeQuery(returnCategories);
+      closeQuery(returnRecipes);
 
       if (conn != null) {
         conn.close();
@@ -84,14 +91,25 @@ public class DataSource {
     return null;
   }
 
-  public ResultSet getAllCategories(int userID){
-    try{
+  public ResultSet getAllCategories(int userID) {
+    try {
       returnCategories.setString(1, String.valueOf(userID));
       ResultSet resultSet = returnCategories.executeQuery();
       return resultSet;
-    } catch (SQLException e){
+    } catch (SQLException e) {
       System.out.println("Couln't get the categories: " + e.getMessage());
     }
+    return null;
+  }
+
+  public ResultSet getAllRecipes(int userId) {
+    try {
+      returnRecipes.setString(1, String.valueOf(userId));
+      return returnRecipes.executeQuery();
+    } catch (SQLException e){
+      System.out.println("Couldn't return recipes: " + e.getMessage());
+    }
+
     return null;
   }
 

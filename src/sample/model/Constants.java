@@ -31,6 +31,7 @@ public class Constants {
   public static final String COLUMN_RECIPES_ID = "_id";
   public static final String COLUMN_RECIPES_RECIPE_NAME = "recipename";
   public static final String COLUMN_RECIPES_CATEGORYID = "categoryid";
+  public static final String COLUMN_RECIPES_USERID = "userid";
 
   // Ingredients table columns
   public static final String COLUMN_INGREDIENTS_ID = "_id";
@@ -54,5 +55,11 @@ public class Constants {
 
   // Categories query
   public static final String GET_CATEGORIES = "SELECT * FROM " + TABLE_CATEGORY + " INNER JOIN " + TABLE_USER + " ON " +TABLE_CATEGORY + "." + COLUMN_CATEGORIES_USERID + " = " + TABLE_USER + "." + COLUMN_USER_ID + " WHERE " + COLUMN_PASSWORD_USERID + " = ?";
+
+  // Recipes query
+  public static final String GET_RECIPES =
+      "SELECT * FROM " + TABLE_RECIPES + " INNER JOIN " + TABLE_USER + " ON " + TABLE_RECIPES + "." + COLUMN_RECIPES_USERID + " = " + TABLE_USER + "." + COLUMN_USER_ID +
+      " WHERE " + COLUMN_CATEGORIES_USERID + " = ?";
+
 
 }

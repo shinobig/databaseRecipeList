@@ -1,6 +1,10 @@
 package sample.view.recipesView;
 
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.layout.VBox;
 import sample.model.DataSource;
 
 import java.sql.ResultSet;
@@ -11,7 +15,12 @@ public class RecipesViewController {
 
   private DataSource dataSource;
   private AllCategories allCategories = new AllCategories();
-  private DisplayedRecipes displayedRecipes;
+  private DisplayedRecipes displayedRecipes = new DisplayedRecipes();
+
+  @FXML
+  VBox categoriesColumn;
+@FXML
+VBox recipesColumn;
 
   public void initialize(int userId) {
 
@@ -21,8 +30,11 @@ public class RecipesViewController {
       System.out.println("Can't open datasource");
     }
 
-    System.out.println(userId);
     getCategories(userId);
+    displayCategories();
+    getAllRecipes(userId);
+   showAllRecipes();
+   displayRecipes();
 
 
   }
@@ -31,22 +43,59 @@ public class RecipesViewController {
 
   private void displayCategories() {
 
+    Button allCategoriesButton = new Button("Show all recipes");
+    categoriesColumn.getChildren().add(allCategoriesButton);
+
+    for (RecipeCategory category : allCategories.getCategories()) {
+      Button categoryButton = new Button(category.getCategory());
+      categoryButton.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+          categoryButtonClick(category.getCategory());
+        }
+      });
+      categoriesColumn.getChildren().add(categoryButton);
+    }
   }
 
   private void getCategories(int userId) {
-    ResultSet testResult = dataSource.getAllCategories(userId);
-    allCategories.setCategories(testResult);
+    allCategories.setCategories(dataSource.getAllCategories(userId));
   }
 
 
-  private void showAllRecipes() {
+
+
+  private void displayRecipes() {
+    for (Recipe recipe : displayedRecipes.getDisplayedRecipes()){
+      Button recipeButton = new Button(recipe.getName());
+      recipeButton.setOnAction(new EventHandler<ActionEvent>() {
+        @Override
+        public void handle(ActionEvent actionEvent) {
+          System.out.println(recipe.getName());
+        }
+      });
+      recipesColumn.getChildren().add(recipeButton);
+    }
   }
 
-  private void displayFilteredRecipes() {
-  }
-
-  private ArrayList<String> filterRecipes() {
+  private ArrayList<String> showFilterRecipes() {
     return null;
   }
 
+  private void showAllRecipes() {
+  displayedRecipes.setDisplayedRecipes(displayedRecipes.getAllRecipes());
+  }
+
+  private void getAllRecipes(int userId) {
+    ResultSet allrecipes = dataSource.getAllRecipes(userId);
+    displayedRecipes.setAllRecipes(allrecipes);
+  }
+
+
+  // Button methods
+  private void categoryButtonClick(String category) {
+    System.out.println(category);
+  }
+
 }
+
