@@ -23,6 +23,14 @@ public class Recipe {
     this.allSteps = allSteps;
     this.allIngredients = allIngredients;
   }
+
+
+  public Recipe(String name, String category, ArrayList<Step> allSteps) {
+    this.name = name;
+    this.category = category;
+    this.allSteps = allSteps;
+  }
+
   public Recipe(String name, String category, ArrayList<Step> allSteps, ArrayList<Ingredient> allIngredients) {
     this.name = name;
     this.category = category;

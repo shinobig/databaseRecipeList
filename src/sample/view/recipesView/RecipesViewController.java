@@ -4,10 +4,13 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import sample.model.Constants;
 import sample.model.DataSource;
 
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class RecipesViewController {
@@ -21,6 +24,8 @@ public class RecipesViewController {
   VBox categoriesColumn;
   @FXML
   VBox recipesColumn;
+  @FXML
+  VBox displayedRecipeColumn;
 
   public void initialize(int userId) {
 
@@ -34,6 +39,7 @@ public class RecipesViewController {
     displayCategories();
     getAllRecipes(userId);
     showAllRecipes();
+    // displayRecipe();
   }
 
   // DataSource interaction
@@ -72,7 +78,7 @@ public class RecipesViewController {
       recipeButton.setOnAction(new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent actionEvent) {
-          System.out.println(recipe.getName());
+          displayRecipe(recipe.getName());
         }
       });
       recipesColumn.getChildren().add(recipeButton);
@@ -86,8 +92,26 @@ public class RecipesViewController {
   }
 
   private void getAllRecipes(int userId) {
-    ResultSet allrecipes = dataSource.getAllRecipes(userId);
-    displayedRecipes.setAllRecipes(allrecipes);
+    ResultSet allRecipes = dataSource.getAllRecipes(userId);
+
+    try {
+      int counter = 0;
+      while (allRecipes.next()) {
+        ResultSet steps = getRecipeSteps(counter);
+        ResultSet ingredients = getIngredients(counter);
+        Ingredient ingredientToProcess = new Ingredient();
+        Step stepToProcess = new Step();
+        displayedRecipes.addRecipeToAll(new Recipe(
+            allRecipes.getString(Constants.COLUMN_RECIPES_RECIPE_NAME),
+            allRecipes.getString(Constants.COLUMN_CATEGORIES_CATEGORY),
+            stepToProcess.processSteps(steps),
+            ingredientToProcess.processIngredients(ingredients)
+        ));
+        counter++;
+      }
+    } catch (SQLException e) {
+      System.out.println("Coudn't set all categories: " + e.getMessage());
+    }
   }
 
   // Button methods
@@ -97,12 +121,20 @@ public class RecipesViewController {
     displayRecipes();
   }
 
-  private void getRecipe(){
-
+  private ResultSet getRecipeSteps(int recipeId) {
+    return dataSource.getSteps(recipeId);
   }
 
-  private void displayRecipe(){
-    
+
+  private ResultSet getIngredients(int recipeId) {
+    return dataSource.getIngredients(recipeId);
+  }
+
+  private void displayRecipe(String recipeName) {
+    Recipe recipeToDisplay = displayedRecipes.getDisplayedRecipes().get(0);
+    Label recipeTitle = new Label(recipeToDisplay.getName());
+    displayedRecipeColumn.getChildren().add(recipeTitle);
+
   }
 
 }

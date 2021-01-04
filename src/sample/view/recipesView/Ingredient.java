@@ -1,12 +1,21 @@
 package sample.view.recipesView;
 
+import sample.model.Constants;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 public class Ingredient {
 
   String ingredientName;
   double quantity;
   String typeOfQuantity;
 
-  public Ingredient(){};
+  public Ingredient() {
+  }
+
+  ;
 
   public Ingredient(String ingredientName) {
     this.ingredientName = ingredientName;
@@ -40,5 +49,26 @@ public class Ingredient {
 
   public void setTypeOfQuantity(String typeOfQuantity) {
     this.typeOfQuantity = typeOfQuantity;
+  }
+
+  public ArrayList<Ingredient> processIngredients(ResultSet ingredients) {
+    ArrayList<Ingredient> ingredientsToAdd = new ArrayList<>();
+    try {
+      while (ingredients.next()) {
+        ingredientsToAdd.add(
+            new Ingredient(
+                ingredients.getString(Constants.COLUMN_INGREDIENTS_INGREDIENT_NAME),
+                ingredients.getDouble(Constants.COLUMN_INGREDIENTS_QUANTITY),
+                ingredients.getString(Constants.COLUMN_INGREDIENTS_TYPE_OF_QUANTITY)
+            )
+        );
+
+      }
+      return ingredientsToAdd;
+
+    } catch (SQLException e) {
+      System.out.println("Couldn't process ingredients: " + e.getMessage());
+      return null;
+    }
   }
 }

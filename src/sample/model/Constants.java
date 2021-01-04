@@ -36,9 +36,9 @@ public class Constants {
   // Ingredients table columns
   public static final String COLUMN_INGREDIENTS_ID = "_id";
   public static final String COLUMN_INGREDIENTS_INGREDIENT_NAME = "ingredient";
-  public static final String COLUMN_INGREDIENTS_QUANTITY =  "quantity";
-  public static final String COLUMN_INGREDIENTS_TYPE_OF_QUANTITY =  "typeofquantity";
-  public static final String COLUMN_INGREDIENTS_RECIPE_ID =  "recipeid";
+  public static final String COLUMN_INGREDIENTS_QUANTITY = "quantity";
+  public static final String COLUMN_INGREDIENTS_TYPE_OF_QUANTITY = "typeofquantity";
+  public static final String COLUMN_INGREDIENTS_RECIPE_ID = "recipeid";
 
   // Steps table columns
   public static final String COLUMN_STEPS_ID = "_id";
@@ -54,7 +54,7 @@ public class Constants {
       "INNER JOIN " + TABLE_USER + " ON " + TABLE_PASSWORD + "." + COLUMN_PASSWORD_USERID + " = " + TABLE_USER + "." + COLUMN_USER_ID + " WHERE " + COLUMN_PASSWORD_USERID + " = ?";
 
   // Categories query
-  public static final String GET_CATEGORIES = "SELECT * FROM " + TABLE_CATEGORY + " INNER JOIN " + TABLE_USER + " ON " +TABLE_CATEGORY + "." + COLUMN_CATEGORIES_USERID + " = " + TABLE_USER + "." + COLUMN_USER_ID + " WHERE " + COLUMN_PASSWORD_USERID + " = ?";
+  public static final String GET_CATEGORIES = "SELECT * FROM " + TABLE_CATEGORY + " INNER JOIN " + TABLE_USER + " ON " + TABLE_CATEGORY + "." + COLUMN_CATEGORIES_USERID + " = " + TABLE_USER + "." + COLUMN_USER_ID + " WHERE " + COLUMN_PASSWORD_USERID + " = ?";
 
   // Recipes query
   public static final String GET_RECIPES =
@@ -63,10 +63,11 @@ public class Constants {
           TABLE_RECIPES + "." + COLUMN_RECIPES_USERID + " FROM " + TABLE_RECIPES + " INNER JOIN " + TABLE_CATEGORY +
           " ON " + TABLE_RECIPES + "." + COLUMN_RECIPES_CATEGORYID + " = " + TABLE_CATEGORY + "." + COLUMN_CATEGORIES_ID + " INNER JOIN " + TABLE_USER + " ON " + TABLE_CATEGORY + "." + COLUMN_CATEGORIES_USERID + " = " + TABLE_USER + "." + COLUMN_USER_ID + " WHERE " + TABLE_USER + "." + COLUMN_USER_ID + " = ?";
 
+  public static final String GET_STEPS = "SELECT * FROM " + TABLE_STEPS + " WHERE " + COLUMN_STEPS_RECIPE_ID + " = ? " +
+      "ORDER BY " + COLUMN_STEPS_STEP_INDEX;
 
-  //SELECT recipes.recipename, categories.category, recipes.userid FROM recipes INNER JOIN categories ON recipes.categoryid = categories._id INNER JOIN users ON categories.userid = users._id WHERE users._id = 0
-
-  public static final String GET_CATEGORY_BY_RECIPE =
-      "SELECT " + COLUMN_CATEGORIES_CATEGORY + " FROM " + TABLE_CATEGORY + " WHERE " + COLUMN_CATEGORIES_ID + " = ?";
+  public static final String GET_INGREDIENTS =
+      "SELECT * FROM " + TABLE_INGREDIENTS + " WHERE " + COLUMN_INGREDIENTS_RECIPE_ID +
+          " = ? ORDER BY " + COLUMN_INGREDIENTS_ID;
 
 }

@@ -16,7 +16,8 @@ public class DataSource {
   private PreparedStatement returnPassword;
   private PreparedStatement returnCategories;
   private PreparedStatement returnRecipes;
-  private PreparedStatement returnCategoryByRecipe;
+  private PreparedStatement returnSteps;
+  private PreparedStatement returnIngredients;
 
 
   public boolean open() {
@@ -26,11 +27,10 @@ public class DataSource {
 
       returnUsername = conn.prepareStatement(Constants.CHECK_USERNAME);
       returnPassword = conn.prepareStatement(Constants.CHECK_PASSWORD);
-       returnCategories = conn.prepareStatement(Constants.GET_CATEGORIES);
+      returnCategories = conn.prepareStatement(Constants.GET_CATEGORIES);
       returnRecipes = conn.prepareStatement(Constants.GET_RECIPES);
-      returnCategoryByRecipe = conn.prepareStatement(Constants.GET_CATEGORY_BY_RECIPE);
-
-
+      returnSteps = conn.prepareStatement(Constants.GET_STEPS);
+      returnIngredients = conn.prepareStatement(Constants.GET_INGREDIENTS);
 
 
       System.out.println("Successfully connected to DB");
@@ -48,7 +48,8 @@ public class DataSource {
       closeQuery(returnPassword);
       closeQuery(returnCategories);
       closeQuery(returnRecipes);
-      closeQuery(returnCategoryByRecipe);
+      closeQuery(returnSteps);
+      closeQuery(returnIngredients);
 
       if (conn != null) {
         conn.close();
@@ -109,9 +110,31 @@ public class DataSource {
     try {
       returnRecipes.setString(1, String.valueOf(userId));
       return returnRecipes.executeQuery();
-    } catch (SQLException e){
+    } catch (SQLException e) {
       System.out.println("Couldn't return recipes: " + e.getMessage());
     }
+    return null;
+  }
+
+  public ResultSet getSteps(int recipeId) {
+    try {
+      returnSteps.setString(1, String.valueOf(recipeId));
+      return returnSteps.executeQuery();
+    } catch (SQLException e) {
+      System.out.println("Couldn't get steps: " + e.getMessage());
+    }
+
+    return null;
+  }
+
+  public ResultSet getIngredients(int recipeId) {
+    try {
+      returnIngredients.setString(1, String.valueOf(recipeId));
+      return returnIngredients.executeQuery();
+    } catch (SQLException e) {
+      System.out.println("Couldn't get ingredients: " + e.getMessage());
+    }
+
     return null;
   }
 
