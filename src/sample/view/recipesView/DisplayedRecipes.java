@@ -75,7 +75,12 @@ public class DisplayedRecipes {
     }
   }
 
-  public Recipe getSpecificRecipe() {
+  public Recipe getSpecificRecipe(String recipeName) {
+    for(Recipe recipe : this.allRecipes){
+      if(recipe.getName().equals(recipeName)){
+        return recipe;
+      }
+    }
     return null;
   }
 

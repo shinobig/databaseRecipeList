@@ -2,45 +2,46 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollBar?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane minHeight="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1"
-          fx:controller="sample.view.recipesView.RecipesViewController">
-  <Label text="Categories:" GridPane.columnIndex="0" GridPane.rowIndex="1"/>
-  <Label text="Recipes:" GridPane.columnIndex="1" GridPane.rowIndex="1"/>
-  <Label text="Recipe:" GridPane.columnIndex="2" GridPane.rowIndex="1"/>
+<?import javafx.scene.control.ScrollPane?>
+<GridPane minHeight="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.view.recipesView.RecipesViewController">
+  <Label text="Categories:" GridPane.columnIndex="0" GridPane.rowIndex="1" />
+  <Label text="Recipes:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+  <Label text="Recipe:" GridPane.columnIndex="2" GridPane.rowIndex="1" />
   <VBox fx:id="categoriesColumn" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.rowIndex="2">
     <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
     </padding>
   </VBox>
 
-  <VBox fx:id="recipesColumn" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.rowIndex="2"
-        GridPane.columnIndex="1">
+  <VBox fx:id="recipesColumn" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
     <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
     </padding>
   </VBox>
 
-
-  <VBox fx:id="displayedRecipeColumn" prefHeight="200.0" prefWidth="100.0" spacing="10.0" GridPane.rowIndex="2"
-        GridPane.columnIndex="2">
+<ScrollPane GridPane.columnIndex="2" GridPane.rowIndex="2" prefHeight="300.0" prefWidth="300.0">
+  <VBox fx:id="displayedRecipeColumn"  spacing="10.0" >
     <padding>
-      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+      <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
     </padding>
   </VBox>
+</ScrollPane>
+
 
   <columnConstraints>
-    <ColumnConstraints minWidth="200.0"/>
-    <ColumnConstraints minWidth="200.0"/>
-    <ColumnConstraints minWidth="400.0"/>
+    <ColumnConstraints minWidth="200.0" />
+    <ColumnConstraints minWidth="200.0" />
+    <ColumnConstraints minWidth="400.0" />
   </columnConstraints>
   <rowConstraints>
-    <RowConstraints/>
-    <RowConstraints/>
-    <RowConstraints/>
+    <RowConstraints />
+    <RowConstraints />
+    <RowConstraints />
   </rowConstraints>
 </GridPane>

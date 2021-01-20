@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.shape.ArcTo;
 import sample.model.Constants;
 import sample.model.DataSource;
 
@@ -39,7 +40,6 @@ public class RecipesViewController {
     displayCategories();
     getAllRecipes(userId);
     showAllRecipes();
-    // displayRecipe();
   }
 
   // DataSource interaction
@@ -70,7 +70,6 @@ public class RecipesViewController {
   private void getCategories(int userId) {
     allCategories.setCategories(dataSource.getAllCategories(userId));
   }
-
 
   private void displayRecipes() {
     for (Recipe recipe : displayedRecipes.getDisplayedRecipes()) {
@@ -125,16 +124,42 @@ public class RecipesViewController {
     return dataSource.getSteps(recipeId);
   }
 
-
   private ResultSet getIngredients(int recipeId) {
     return dataSource.getIngredients(recipeId);
   }
 
   private void displayRecipe(String recipeName) {
-    Recipe recipeToDisplay = displayedRecipes.getDisplayedRecipes().get(0);
+    displayedRecipeColumn.getChildren().clear();
+    Recipe recipeToDisplay = displayedRecipes.getSpecificRecipe(recipeName);
     Label recipeTitle = new Label(recipeToDisplay.getName());
     displayedRecipeColumn.getChildren().add(recipeTitle);
 
+    Label ingredientsTitle = new Label("Ingredients:");
+    displayedRecipeColumn.getChildren().add(ingredientsTitle);
+    displayIngredients(recipeToDisplay);
+
+    Label stepsTitle = new Label("Steps:");
+    displayedRecipeColumn.getChildren().add(stepsTitle);
+    displaySteps(recipeToDisplay);
+  }
+
+  private void displayIngredients(Recipe recipeToDisplay){
+    ArrayList<Ingredient> allIngredients = recipeToDisplay.getAllIngredients();
+    for(int i = 0; i < allIngredients.size(); i++){
+      Ingredient ingredient = allIngredients.get(i);
+      Label ingredientToAdd =
+          new Label(Integer.toString(i) + ". " + ingredient.getIngredientName() + " - " + Double.toString(ingredient.getQuantity()) + " " + ingredient.getTypeOfQuantity());
+      displayedRecipeColumn.getChildren().add(ingredientToAdd);
+    }
+  }
+
+  private void displaySteps(Recipe recipeToDisplay){
+    ArrayList<Step> allSteps = recipeToDisplay.getAllSteps();
+    for (int i = 0; i < allSteps.size(); i++){
+      Step step = allSteps.get(i);
+      Label stepToAdd = new Label(Integer.toString(step.getIndex()) + ". " +  step.getStep());
+      displayedRecipeColumn.getChildren().add(stepToAdd);
+    }
   }
 
 }
