@@ -48,7 +48,6 @@ public class Controller {
   private void showRecipesView(int userId) {
     dataSource.close();
     try {
-
       FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("view/recipesView/recipesView.fxml"));
       Parent root1 = fxmlLoader.load();
       Stage stage = new Stage();

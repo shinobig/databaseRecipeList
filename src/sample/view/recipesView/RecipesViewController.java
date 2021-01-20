@@ -3,13 +3,18 @@ package sample.view.recipesView;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.ArcTo;
 import sample.model.Constants;
 import sample.model.DataSource;
 
+import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,10 +32,10 @@ public class RecipesViewController {
   VBox recipesColumn;
   @FXML
   VBox displayedRecipeColumn;
+  @FXML
+  GridPane mainGridPane;
 
   public void initialize(int userId) {
-
-
     dataSource = new DataSource();
     if (!dataSource.open()) {
       System.out.println("Can't open datasource");
@@ -161,6 +166,30 @@ public class RecipesViewController {
       displayedRecipeColumn.getChildren().add(stepToAdd);
     }
   }
+
+  @FXML
+  private void openNewRecipe(){}
+
+  @FXML
+  private void openNewCategory(){
+
+    Dialog<ButtonType> categoryDialog = new Dialog<>();
+    categoryDialog.initOwner(mainGridPane.getScene().getWindow());
+    categoryDialog.setTitle("Add new category");
+    categoryDialog.setHeaderText("Use this dialog to add a category");
+    FXMLLoader fxmlLoader = new FXMLLoader();
+    fxmlLoader.setLocation(getClass().getResource("addNewCategoryDialog.fxml"));
+
+    try{
+      categoryDialog.getDialogPane().setContent(fxmlLoader.load());
+    } catch (IOException e){
+      System.out.println("couldn't open category dialog: " + e.getMessage());
+      return;
+    }
+
+  }
+
+
 
 }
 

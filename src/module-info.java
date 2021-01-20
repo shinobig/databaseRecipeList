@@ -6,4 +6,5 @@ module databaseRecipeList {
 
   opens sample;
   opens sample.view.recipesView;
+  opens sample.view.addNewRecipeView;
 }
